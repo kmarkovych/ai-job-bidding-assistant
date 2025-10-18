@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Job Bidding Assistant - Settings</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 32px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 32px;
+    }
+
+    .section {
+      margin-bottom: 32px;
+    }
+
+    .section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e5e7eb;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+
+    .form-description {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .radio-option {
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .radio-option input[type="radio"] {
+      display: none;
+    }
+
+    .radio-label {
+      display: block;
+      padding: 12px;
+      border: 2px solid #d1d5db;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .radio-option input[type="radio"]:checked + .radio-label {
+      border-color: #667eea;
+      background: #f0f4ff;
+      color: #667eea;
+    }
+
+    .radio-label:hover {
+      border-color: #667eea;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      flex: 1;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #374151;
+      border: 1px solid #d1d5db;
+    }
+
+    .btn-secondary:hover {
+      background: #f9fafb;
+    }
+
+    .alert {
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .alert.success {
+      background: #d1fae5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+
+    .alert.error {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
+    .info-box {
+      background: #f0f9ff;
+      border-left: 4px solid #3b82f6;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+
+    .info-box p {
+      font-size: 13px;
+      color: #1e40af;
+      line-height: 1.5;
+    }
+
+    .link {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Settings</h1>
+      <p>Configure your AI Job Bidding Assistant</p>
+    </div>
+
+    <div class="content">
+      <div id="alertBox" class="alert"></div>
+
+      <!-- AI Provider Settings -->
+      <div class="section">
+        <h2 class="section-title">AI Provider Configuration</h2>
+
+        <div class="info-box">
+          <p>
+            <strong>Getting API Keys:</strong><br>
+            OpenAI: <a href="https://platform.openai.com/api-keys" target="_blank" class="link">platform.openai.com/api-keys</a><br>
+            Claude AI: <a href="https://console.anthropic.com/settings/keys" target="_blank" class="link">console.anthropic.com/settings/keys</a>
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">AI Provider</label>
+          <select id="aiProvider" class="form-select">
+            <option value="openai">OpenAI (GPT-4)</option>
+            <option value="claude">Anthropic Claude</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="openaiModelGroup">
+          <label class="form-label">OpenAI Model</label>
+          <select id="openaiModel" class="form-select">
+            <option value="gpt-4">GPT-4 (Recommended)</option>
+            <option value="gpt-4-turbo">GPT-4 Turbo</option>
+            <option value="gpt-3.5-turbo">GPT-3.5 Turbo (Faster, cheaper)</option>
+          </select>
+        </div>
+
+        <div class="form-group" id="claudeModelGroup" style="display: none;">
+          <label class="form-label">Claude Model</label>
+          <select id="claudeModel" class="form-select">
+            <option value="claude-3-5-sonnet-20241022">Claude 3.5 Sonnet (Recommended)</option>
+            <option value="claude-3-opus-20240229">Claude 3 Opus (Most capable)</option>
+            <option value="claude-3-sonnet-20240229">Claude 3 Sonnet</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">API Key</label>
+          <input type="password" id="apiKey" class="form-input" placeholder="sk-...">
+          <p class="form-description">Your API key is stored securely and never shared.</p>
+        </div>
+      </div>
+
+      <!-- Proposal Settings -->
+      <div class="section">
+        <h2 class="section-title">Proposal Settings</h2>
+
+        <div class="form-group">
+          <label class="form-label">Tone</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="toneProfessional" name="tone" value="professional" checked>
+              <label for="toneProfessional" class="radio-label">Professional</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="toneFriendly" name="tone" value="friendly">
+              <label for="toneFriendly" class="radio-label">Friendly</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="toneEnthusiastic" name="tone" value="enthusiastic">
+              <label for="toneEnthusiastic" class="radio-label">Enthusiastic</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="toneFormal" name="tone" value="formal">
+              <label for="toneFormal" class="radio-label">Formal</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Proposal Length</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="lengthShort" name="proposalLength" value="short">
+              <label for="lengthShort" class="radio-label">Short<br><small>100-150 words</small></label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="lengthMedium" name="proposalLength" value="medium" checked>
+              <label for="lengthMedium" class="radio-label">Medium<br><small>150-250 words</small></label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="lengthLong" name="proposalLength" value="long">
+              <label for="lengthLong" class="radio-label">Long<br><small>250-400 words</small></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Proposal Template (Optional)</label>
+          <textarea id="proposalTemplate" class="form-textarea" placeholder="Enter a template for proposals. Use placeholders like {job_title}, {skills}, etc. Leave blank for AI to generate freely."></textarea>
+          <p class="form-description">The AI will adapt this template to match each job posting.</p>
+        </div>
+      </div>
+
+      <!-- Profile Information -->
+      <div class="section">
+        <h2 class="section-title">Your Profile</h2>
+
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input type="text" id="userName" class="form-input" placeholder="e.g., John Smith">
+          <p class="form-description">Your full name for personalizing proposals</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Business Domains</label>
+          <textarea id="businessDomains" class="form-textarea" placeholder="e.g., E-commerce, Healthcare, FinTech, SaaS, Education Technology"></textarea>
+          <p class="form-description">Industries and business domains you have experience with</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Your Skills</label>
+          <input type="text" id="userSkills" class="form-input" placeholder="e.g., JavaScript, React, Node.js, Python">
+          <p class="form-description">Comma-separated list of your skills</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Your Experience</label>
+          <textarea id="userExperience" class="form-textarea" placeholder="Briefly describe your experience, achievements, and what makes you unique..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Specialization</label>
+          <input type="text" id="userSpecialization" class="form-input" placeholder="e.g., Full-stack development, Mobile apps, Data science">
+        </div>
+      </div>
+
+      <!-- Save Buttons -->
+      <div class="button-group">
+        <button id="saveBtn" class="btn btn-primary">Save Settings</button>
+        <button id="resetBtn" class="btn btn-secondary">Reset to Defaults</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

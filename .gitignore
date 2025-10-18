@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+*.log
+.env
+*.zip
+PROJECT_SUMMARY.md 
+QUICKSTART.md  
+TEST_DATA_EXTRACTION.md 
+DEBUG_NO_BUTTON.md 
+FIXES_APPLIED.md 
+HOW_TO_TEST.md
