@@ -31,31 +31,61 @@
 
     console.log(`Platform detected: ${platform}`);
 
-    // Extract job data based on platform
-    jobData = extractJobData(platform);
+    // Check if we're on an apply page
+    const isApplyPage = window.location.pathname.includes('/apply/');
+    console.log(`Page type: ${isApplyPage ? 'Apply Page' : 'Job Page'}`);
 
-    if (jobData) {
-      console.log('✅ Job data extracted:', jobData);
+    if (isApplyPage) {
+      // On apply page - try to retrieve stored job data
+      chrome.storage.local.get(['lastJobData'], (result) => {
+        if (result.lastJobData) {
+          console.log('✅ Using stored job data from job page:', result.lastJobData);
+          jobData = result.lastJobData;
+          injectUI();
+        } else {
+          console.log('⚠️ No stored job data found, extracting from apply page...');
+          jobData = extractJobData(platform);
+          if (jobData) {
+            console.log('✅ Job data extracted from apply page:', jobData);
+          } else {
+            console.warn('❌ Extraction failed, using minimal fallback...');
+            jobData = createFallbackJobData(platform);
+          }
+          injectUI();
+        }
+      });
     } else {
-      console.warn('❌ Extraction returned null, creating minimal fallback...');
+      // On job page - extract and store data
+      jobData = extractJobData(platform);
 
-      // Minimal fallback (should rarely happen now)
-      jobData = {
-        title: document.title || 'Job Posting',
-        description: getPageText(),
-        skills: [],
-        budget: '',
-        clientInfo: '',
-        platform: platform,
-        screeningQuestions: []
-      };
+      if (jobData) {
+        console.log('✅ Job data extracted from job page:', jobData);
+        // Store job data for use on apply page
+        chrome.storage.local.set({ lastJobData: jobData }, () => {
+          console.log('💾 Job data stored for apply page');
+        });
+      } else {
+        console.warn('❌ Extraction returned null, creating minimal fallback...');
+        jobData = createFallbackJobData(platform);
+      }
 
-      console.log('Using fallback job data:', jobData);
+      // Always inject UI if we detected a platform
+      console.log('Injecting UI...');
+      injectUI();
     }
+  }
 
-    // Always inject UI if we detected a platform
-    console.log('Injecting UI...');
-    injectUI();
+  // Create fallback job data
+  function createFallbackJobData(platform) {
+    return {
+      title: document.title || 'Job Posting',
+      description: getPageText(),
+      skills: [],
+      budget: '',
+      clientInfo: '',
+      platform: platform,
+      screeningQuestions: []
+    };
   }
 
   // Helper function to get page text content
